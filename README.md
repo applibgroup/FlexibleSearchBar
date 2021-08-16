@@ -11,8 +11,9 @@ The code in this repository was inspired from https://github.com/yuqirong/Flexib
 
 Screenshot
 ----------
-![screenshot](/screenshot/close.png)
-![screenshot](/screenshot/expand.png)
+![screenshot](/screenshot/closed.PNG)
+![screenshot](/screenshot/expand.PNG)
+![screenshot](/screenshot/toast.PNG)
 
 ## Installation
 
