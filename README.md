@@ -3,62 +3,86 @@ FlexibleSearchBar
 
 Introduction
 ------------
-可以伸缩的搜索栏，模仿 [华为应用市场](http://app.hicloud.com/) 。
+Scalable search bar, imitating Huawei's application market
+
+# Source
+
+The code in this repository was inspired from https://github.com/yuqirong/FlexibleSearchBar. We are very thankful to yuqirong.
 
 Screenshot
 ----------
-![screenshot](/screenshot/20170701150542.gif)
+![screenshot](/screenshot/1.PNG)
+![screenshot](/screenshot/2.PNG)
+![screenshot](/screenshot/3.PNG)
 
-Blog
-----------
-[《可以伸缩的搜索栏，模仿华为应用市场》](http://yuqirong.me/2017/07/03/%E5%8F%AF%E4%BB%A5%E4%BC%B8%E7%BC%A9%E7%9A%84%E6%90%9C%E7%B4%A2%E6%A0%8F%EF%BC%8C%E6%A8%A1%E4%BB%BF%E5%8D%8E%E4%B8%BA%E5%BA%94%E7%94%A8%E5%B8%82%E5%9C%BA/)
+## Installation
+
+In order to use the library, add the following line to your **root** gradle file:
+
+I) For using FlexiSearchBar module in sample app, include the source code and add the below dependencies in entry/build.gradle to generate hap/support.har.
+```
+dependencies {
+        implementation project(':flexiblesearchbarview')
+        implementation fileTree(dir: 'libs', include: ['*.har'])
+        testImplementation 'junit:junit:4.13'
+}
+```
+II) For using FlexiSearchBar in separate application using har file, add the har file in the entry/libs folder and add the dependencies in entry/build.gradle file.
+```
+dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.har'])
+        testImplementation 'junit:junit:4.12'
+}
+```
 
 Usage
 -----
-1. 在布局中加入 `SearchBarView`：
+I). Add `SearchBarView` in layout：
 
-	``` xml
-	<com.yuqirong.searchbar.SearchBarView
-	    android:id="@+id/searchbarview"
-	    android:layout_width="match_parent"
-	    android:layout_height="40dp"
-	    android:layout_margin="8dp"
-	    app:search_bar_hint_text="@string/string_search_text" />
-	```
+	<com.yuqirong.flexiblesearchbarview.SearchBarView
+            ohos:id="$+id:flexible_search_bar_view"
+            ohos:height="50vp"
+            ohos:width="match_parent"
+            ohos:margin="10vp"
+            />
 
-2. 在代码中使用它，`startOpen()` 为打开搜索栏；反之，`startClose()` 为关闭搜索栏：
 
-	``` java
+II). Usage in `startOpen()` to open searchbarview，`startClose()` to close searchbarview：
+
+	
 	SearchBarView searchbarview = (SearchBarView) findViewById(R.id.searchbarview);
-	searchbarview.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            // enter search activity
+
+	searchbarview.startOpen();; // Open Search Bar
+	...
+	searchbarview.startClose(); // Close Search Bar
+    
+    onscroll of list container:
+    i) if first item is visible in listcontainer then we are closing searchbarview
+    ii) if first item is not visible then we are opening searchbarview
+    
+    listContainer.setScrollListener(() -> {
+            if (listContainer.getItemPosByVisibleIndex(0) == 0) {
+                srchBrVw.startClose(); 
+            } else {
+                srchBrVw.startOpen();
+            }
+        });
+	
+	onclick of searchbarview:
+	i) if the view is opened then we are showing Toast message:
+	  
+	searchbarview.setClickedListener((final Component component) -> {
+        if (srchBrVw.chekOpen()) {
+            try {
+                String text;
+                text = getContext().getResourceManager().getElement(ResourceTable.String_enter_text).getString();
+                toastDialog.setText(text);
+            } catch (IOException | NotExistException | WrongTypeException e) {
+                e.printStackTrace();
+            }
+            toastDialog.show();
         }
     });
-
-	searchbarview.startOpen(); // 打开搜索栏
-	...
-	searchbarview.startClose(); // 关闭搜索栏
-	```
-
-Custom Attributes
------------------
-| 属性名          | 格式        | 描述 |
-| ------------- |:-------------:| -----------:|
-| search_bar_color | color\|reference | 搜索栏背景色 |
-| search_bar_position | enum | 搜索栏的位置（左或右） |
-| search_bar_status | enum | 搜索栏的状态（打开或关闭） |
-| search_bar_duration | integer | 搜索栏打开或关闭的动画时间 |
-| search_bar_hint_text | string\|reference | 搜索栏的提示文本 |
-| search_bar_hint_text_color | color\|reference | 提示文本的颜色 |
-| search_bar_hint_text_size | dimension\|reference | 提示文本的字体大小 |
-| search_bar_icon | reference | 搜索栏的图标 |
-
-Contact Me
-----------
-* Email : <yqr271228943@gmail.com>
-* Weibo : [@活得好像一条狗](http://weibo.com/yyyuqirong)
 
 License
 -------
