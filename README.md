@@ -1,5 +1,6 @@
 FlexibleSearchBar
 =================
+[![Build](https://github.com/applibgroup/FlexibleSearchBar/actions/workflows/main.yml/badge.svg)](https://github.com/applibgroup/FlexibleSearchBar/actions/workflows/main.yml)
 
 Introduction
 ------------
