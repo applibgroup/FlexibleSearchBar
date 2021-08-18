@@ -191,7 +191,7 @@ public class SearchBarView extends Component implements Component.DrawTask, Comp
         try {
             textPaint =  getContext().getResourceManager().getElement(ResourceTable.String_search_content).getString();
         } catch (IOException | NotExistException | WrongTypeException e) {
-            e.printStackTrace();
+            HiLog.error(LABEL, "Exception has occured");
         }
         setBorderColor(Color.WHITE);
         setBorderColorPaint(Color.DKGRAY);
@@ -295,39 +295,9 @@ public class SearchBarView extends Component implements Component.DrawTask, Comp
      * @param valUpdateListen valUpdateListen
      */
     private void openAnimationDurationAndListener(final AnimatorValue.ValueUpdateListener valUpdateListen) {
-        open.setDuration(DEFAULT_ANIMATION);
-        open.setValueUpdateListener(valUpdateListen);
-        open.setStateChangedListener(new Animator.StateChangedListener() {
-            @Override
-            public void onStart(final Animator animator) {
-                status = STATUS_PROCESS;
-            }
-
-            @Override
-            public void onStop(final Animator animator) {
-                // TO-DO
-            }
-
-            @Override
-            public void onCancel(final Animator animator) {
-                // TO-DO
-            }
-
-            @Override
-            public void onEnd(final Animator animator) {
-                status = STATUS_OPEN;
-            }
-
-            @Override
-            public void onPause(final Animator animator) {
-                // TO-DO
-            }
-
-            @Override
-            public void onResume(final Animator animator) {
-                // TO-DO
-            }
-        });
+        setAnimationDuration(open);
+        setValUpdtListener(open, valUpdateListen);
+        setStateChangeListener(open, STATUS_OPEN);
     }
 
     /**
@@ -336,9 +306,40 @@ public class SearchBarView extends Component implements Component.DrawTask, Comp
      * @param valUpdateListen valUpdateListen
      */
     private void closeAnimationDurationAndListener(final AnimatorValue.ValueUpdateListener valUpdateListen) {
-        close.setDuration(DEFAULT_ANIMATION);
-        close.setValueUpdateListener(valUpdateListen);
-        close.setStateChangedListener(new Animator.StateChangedListener() {
+        setAnimationDuration(close);
+        setValUpdtListener(close, valUpdateListen);
+        setStateChangeListener(close, STATUS_CLOSE);
+    }
+
+    /**
+     * set state changed listener.
+     *
+     * @param animatorValue animatorValue
+     */
+    private void setAnimationDuration(final AnimatorValue animatorValue) {
+        animatorValue.setDuration(DEFAULT_ANIMATION);
+    }
+
+    /**
+     * set state changed listener.
+     *
+     * @param animVal animVal
+     *
+     * @param updLisNer upLisNer
+     */
+    private void setValUpdtListener(final AnimatorValue animVal, final AnimatorValue.ValueUpdateListener updLisNer) {
+        animVal.setValueUpdateListener(updLisNer);
+    }
+
+    /**
+     * set state changed listener.
+     *
+     * @param animatorValue animatorValue
+     *
+     * @param stat stat
+     */
+    private void setStateChangeListener(final AnimatorValue animatorValue, final int stat) {
+        animatorValue.setStateChangedListener(new Animator.StateChangedListener() {
             @Override
             public void onStart(final Animator animator) {
                 status = STATUS_PROCESS;
@@ -356,7 +357,7 @@ public class SearchBarView extends Component implements Component.DrawTask, Comp
 
             @Override
             public void onEnd(final Animator animator) {
-                status = STATUS_CLOSE;
+                status = stat;
             }
 
             @Override
