@@ -30,9 +30,6 @@ import ohos.global.resource.NotExistException;
 import ohos.global.resource.WrongTypeException;
 import com.yuqirong.flexiblesearchbarview.SearchBarView;
 import com.yuqirong.searchbarview.ResourceTable;
-import ohos.hiviewdfx.HiLog;
-import ohos.hiviewdfx.HiLogLabel;
-
 import java.io.IOException;
 
 /**
@@ -43,18 +40,6 @@ public class MainAbilitySlice extends AbilitySlice {
      * List view Data.
      */
     private String[] aplhabet;
-    /**
-     * TYPE.
-     */
-    private static final int HILOG_TYPE = 3;
-    /**
-     * DOMAIN.
-     */
-    private static final int HILOG_DOMAIN = 0xD000F00;
-    /**
-     * LABEL.
-     */
-    private static final HiLogLabel LABEL = new HiLogLabel(HILOG_TYPE, HILOG_DOMAIN, "MainAbilitySlice");
 
     /**
      * onStart.
@@ -74,7 +59,7 @@ public class MainAbilitySlice extends AbilitySlice {
                     text = getContext().getResourceManager().getElement(ResourceTable.String_enter_text).getString();
                     toastDialog.setText(text);
                 } catch (IOException | NotExistException | WrongTypeException e) {
-                    HiLog.error(LABEL, "Exception has occured");
+                    e.printStackTrace();
                 }
                 toastDialog.show();
             }
