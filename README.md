@@ -1,7 +1,7 @@
 FlexibleSearchBar
 =================
 [![Build](https://github.com/applibgroup/FlexibleSearchBar/actions/workflows/main.yml/badge.svg)](https://github.com/applibgroup/FlexibleSearchBar/actions/workflows/main.yml)
-
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=applibgroup_FlexibleSearchBar&metric=alert_status)](https://sonarcloud.io/dashboard?id=applibgroup_FlexibleSearchBar)
 Introduction
 ------------
 Scalable search bar, imitating Huawei's application market
