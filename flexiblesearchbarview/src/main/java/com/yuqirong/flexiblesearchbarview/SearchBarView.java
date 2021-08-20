@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 /**
- * SearchBarView class is Custom View.
+ * @author qirong
  */
 public class SearchBarView extends Component implements Component.DrawTask, Component.EstimateSizeListener {
     /**
