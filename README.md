@@ -36,7 +36,7 @@ dependencies {
         testImplementation 'junit:junit:4.12'
 }
 ```
-For using MaterialLetterIcon from a remote repository in separate application, add the below dependencies in entry/build.gradle file.
+III) For using FlexiSearchBar from a remote repository in separate application, add the below dependencies in entry/build.gradle file.
 ```
 dependencies {
     implementation 'dev.applibgroup:flexiblesearchview:1.0.0'
